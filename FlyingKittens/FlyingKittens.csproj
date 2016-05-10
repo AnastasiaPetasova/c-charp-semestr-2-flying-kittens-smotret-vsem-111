@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Field.cs" />
     <Compile Include="FlyingFigure.cs" />
+    <Compile Include="FlyingPolygon.cs" />
     <Compile Include="FlyingRectangle.cs" />
     <Compile Include="FlyingRectFigure.cs" />
     <Compile Include="Form1.cs">
@@ -70,6 +71,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -83,6 +85,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\fon_creator.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\play2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

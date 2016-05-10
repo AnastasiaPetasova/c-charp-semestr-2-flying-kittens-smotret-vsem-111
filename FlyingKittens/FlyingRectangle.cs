@@ -18,23 +18,14 @@ namespace FlyingKittens
             return new FlyingRectangle(penColor, brushColor, box);
         }
 
-        public override void Draw(Graphics g)
+        protected override void DrawPen(Graphics g, Pen pen)
         {
-            if (penColor != null)
-            {
-                using (Pen pen = new Pen(penColor))
-                {
-                    g.DrawRectangle(pen, box);
-                }
-            }
-            
-            if (brushColor != null)
-            {
-                using (Brush brush = new SolidBrush(brushColor))
-                {
-                    g.FillRectangle(brush, box);
-                }
-            }
+            g.DrawRectangle(pen, box);
+        }
+
+        protected override void DrawBrush(Graphics g, Brush brush)
+        {
+            g.FillRectangle(brush, box);
         }
     }
 }

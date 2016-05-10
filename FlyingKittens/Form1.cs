@@ -35,15 +35,32 @@ namespace FlyingKittens
 
         void InitFlyingKittens()
         {
+            buttonUp.Text = "\u2191";
+            buttonDown.Text = "\u2193";
+            buttonLeft.Text = "\u2190";
+            buttonRight.Text = "\u2192";
+
+            numericUpDownFrequency.Value = SECOND_MS / DEFAULT_DELAY_MS;
+
             field = new Field(pictureBoxArea.Width, pictureBoxArea.Height);
 
             figures = new List<FlyingFigure>();
+
             figures.Add(
                 new FlyingRectangle(
                     Color.Black, Color.LawnGreen,
                     new Rectangle(
                         field.Width / 2, field.Height / 2, 30, 100
                     )
+                )
+            );
+
+            figures.Add(
+                FlyingPolygon.CreateFlyingPolygon(
+                    Color.Empty, Color.Yellow,
+                    new Point(field.Width / 3, field.Height / 3),
+                    new Point(field.Width / 3, field.Height / 2),
+                    new Point(field.Width / 2, field.Height * 5 / 12)
                 )
             );
         }
@@ -59,11 +76,17 @@ namespace FlyingKittens
             new Point(0, 0)
         };
 
-        const int DELAY_MS = 25;
+        const int SECOND_MS = 1000, DEFAULT_DELAY_MS = 25;
 
         Thread movingThread;
         volatile bool isStarted = false;
         volatile int direction = NONE;
+        volatile int delay = SECOND_MS / DEFAULT_DELAY_MS;
+
+        private void numericUpDownFrequency_ValueChanged(object sender, EventArgs e)
+        {
+            delay = (int)(SECOND_MS / numericUpDownFrequency.Value);
+        }
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
@@ -84,7 +107,6 @@ namespace FlyingKittens
             movingThread = new Thread(MoveFigures);
             movingThread.Start();
         }
-
 
         private void buttonPause_Click(object sender, EventArgs e)
         {
@@ -157,7 +179,10 @@ namespace FlyingKittens
                 List<FlyingFigure> nextFigures = new List<FlyingFigure>();
                 foreach (FlyingFigure figure in figures)
                 {
-                    if (figure.IsOutside(field)) continue;
+                    if (figure.IsOutside(field))
+                    {
+                        continue;
+                    }
 
                     nextFigures.Add(figure);
 
@@ -177,7 +202,7 @@ namespace FlyingKittens
                 }
 
                 figures = nextFigures;
-                Thread.Sleep(DELAY_MS);
+                Thread.Sleep(delay);
             }
         }
     }
